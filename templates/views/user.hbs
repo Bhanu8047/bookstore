@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=egde">
+    <title>Book-Store</title>
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+    <header>
+        <nav>
+            <form action="/user/logout" method="POST">
+                <button type="submit">logout</button>
+            </form>
+
+        </nav>
+    </header>
+    <p>Id:{{id}}</p>
+    <h3>Name:{{name}}</h3>
+    <h3>Username:{{username}}</h3>
+    
+    {{!-- <button id="showBooks" >show Books</button> --}}
+
+    <div class="showbooks" id="books">
+        <table border="1px">
+            <tr>
+                <th>ID</th>
+                <th>Book name</th>
+                <th>Book author</th>
+                <th>Price</th>
+            </tr>
+            {{#each books}}
+            <tr>
+                <td>{{this.id}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.author}}</td>
+                <td>{{this.price}}</td>
+            </tr>
+            {{/each}}
+        </table>
+        
+    </div>
+    <script src="/js/book.js"></script>
+</body>
+</html>

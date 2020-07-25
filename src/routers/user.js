@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const { addUser, getUser, findUser, getId } = require('../../db/user')
 const { insertBook, deleteBook, getBooks, updateBook } = require('../../db/books')
 const session = require('express-session')
-const { auth, redirect } = require('../../middlewares/auth')
+const { auth, redirect, admin, adminRedirect } = require('../../middlewares/auth')
 
 const TWO_HOURS = 1000 * 60 * 60 * 2
 const  {
@@ -27,7 +27,7 @@ router.use(session({
     cookie: {
         maxAge: SESS_LIFETIME,
         sameSite: true,
-        secure : IN_PROD
+        secure : IN_PROD,
     }
 }))
 
@@ -49,8 +49,7 @@ router.get('/user', auth, (req, res) => {
             username: req.session.username,
             books
         })
-    })
-    
+    })  
     
 })
 
@@ -75,6 +74,7 @@ router.post('/login', redirect, (req, res)=> {
                 req.session.userId = user.id
                 req.session.name = user.name
                 req.session.username = user.username
+                req.session.admin = false
                 return res.redirect('/user')
                 // res.send({
                 //     user,
@@ -106,6 +106,7 @@ router.post('/signup', redirect, (req, res)=> {
                 })
                 req.session.name = name
                 req.session.username = username
+                req.session.admin = false
                 return res.status(200).redirect('/user')
             } else {
                 res.redirect('/signup')
@@ -125,5 +126,8 @@ router.post('/user/logout', auth, (req, res)=>{
         res.redirect('/')
     })
 })
+
+
+
 
 module.exports = router

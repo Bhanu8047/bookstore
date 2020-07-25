@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path')
 const hbs = require('hbs')
 const userRoute = require('./routers/user')
+const adminRoute = require('./routers/admin')
 const bookRoute = require('./routers/books')
 
 
@@ -22,6 +23,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(userRoute)
 app.use(bookRoute)
+app.use(adminRoute)
 
 
 module.exports = app

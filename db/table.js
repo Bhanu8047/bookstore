@@ -6,7 +6,6 @@ let sql = `CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHA
 db.serialize( () => {
     db.run(sql, err => {
         if(err){
-            console.error(err.message)
             return err
         }
         console.log('Created table sucessfully!!')
@@ -18,10 +17,22 @@ sql = `CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR2(30
 db.serialize( () => {
     db.run(sql, err => {
         if(err){
-            console.error(err.message)
             return err
         }
         console.log('Created table sucessfully!!')
+    })
+})
+
+// creating table admin
+
+sql = `CREATE TABLE admin (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR2(30) NOT NULL, username VARCHAR2(30) NOT NULL UNIQUE, password VARCHAR2(30) NOT NULL)`
+
+db.serialize( ()=> {
+    db.run(sql, err=>{
+        if(err){
+            return err
+        }
+        console.log('Created Admin table sucessfully')
     })
 })
 
